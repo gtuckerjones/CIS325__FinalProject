@@ -42,7 +42,7 @@ router.put('/:id', requireLogIn, (req, res) => {
   const { day_of_week, start_time, end_time, description } = req.body;
   db.run(
     `UPDATE weekly_schedule SET day_of_week = ?, start_time = ?, end_time = ?, description = ?
-     WHERE id = ?`,
+     WHERE id = ? AND user_id = ?`,
     [day_of_week, start_time, end_time, description, scheduleId, userId],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -55,7 +55,7 @@ router.put('/:id', requireLogIn, (req, res) => {
 router.delete('/:id', requireLogIn, (req, res) => {
   const scheduleId = req.params.id;
   const userId = logInCheck.getUserId();
-  db.run('DELETE FROM weekly_schedule WHERE id = ?', [scheduleId, userId], function (err) {
+  db.run('DELETE FROM weekly_schedule WHERE id = ? AND user_id = ?', [scheduleId, userId], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     if (this.changes === 0) return res.status(404).json({ error: 'Schedule entry not found' });
     res.json({ message: 'Schedule entry deleted' });

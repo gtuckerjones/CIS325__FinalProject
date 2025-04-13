@@ -41,7 +41,7 @@ router.put('/:id', requireLogIn, (req, res) => {
   const { start_time, end_time } = req.body;
   const userId = logInCheck.getUserId();
   db.run(
-    `UPDATE scheduled_tasks SET start_time = ?, end_time = ? WHERE id = ?`,
+    `UPDATE scheduled_tasks SET start_time = ?, end_time = ? WHERE id = ? AND user_id = ?`,
     [start_time, end_time, scheduledTaskId, userId],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -54,7 +54,7 @@ router.put('/:id', requireLogIn, (req, res) => {
 router.delete('/:id', requireLogIn, (req, res) => {
   const scheduledTaskId = req.params.id;
   const userId = logInCheck.getUserId();
-  db.run('DELETE FROM scheduled_tasks WHERE id = ?', [scheduledTaskId, userId], function (err) {
+  db.run('DELETE FROM scheduled_tasks WHERE id = ? AND user_id = ?', [scheduledTaskId, userId], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     if (this.changes === 0) return res.status(404).json({ error: 'Scheduled task not found' });
     res.json({ message: 'Scheduled task deleted' });

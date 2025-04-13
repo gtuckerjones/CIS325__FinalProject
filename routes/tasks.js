@@ -43,7 +43,7 @@ router.put('/:id', requireLogIn, (req, res) => {
   db.run(
     `UPDATE tasks
      SET title = ?, description = ?, estimated_duration = ?, due_date = ?, priority = ?, is_complete = ?
-     WHERE id = ?`,
+     WHERE id = ? AND user_id = ?`,
     [title, description, estimated_duration, due_date, priority, is_complete, taskId, userId],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -56,7 +56,7 @@ router.put('/:id', requireLogIn, (req, res) => {
 router.delete('/:id', requireLogIn, (req, res) => {
   const taskId = req.params.id;
   const userId = logInCheck.getUserId();
-  db.run('DELETE FROM tasks WHERE id = ?', [taskId, userId], function (err) {
+  db.run('DELETE FROM tasks WHERE id = ? AND user_id = ?', [taskId, userId], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     if (this.changes === 0) return res.status(404).json({ error: 'Task not found' });
     res.json({ message: 'Task deleted' });
