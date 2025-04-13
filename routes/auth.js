@@ -4,7 +4,7 @@ const db = require('../db');
 const logInCheck = require('../loggedInCheck');
 
 //Register
-router.post('register', (req, res) => {
+router.post('/register', (req, res) => {
     const {firstName, lastName, email, password} = req.body;
 
     if (!firstName || !lastName || !email || !password) {
@@ -13,7 +13,7 @@ router.post('register', (req, res) => {
 
     const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailCheck.test(email)) {
-        return res.status(400).json({ error: 'Invalid format'});
+        return res.status(400).json({ error: 'Invalid email format'});
     }
 
     const passwordCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$/;
@@ -26,7 +26,7 @@ router.post('register', (req, res) => {
         if (err) return res.status(500).json({error: err.message});
         if (row) return res.status(400).json({ error: 'Email already exists'});
 
-        const insertQuery = 'INSET INTO users (firstName, lastName, email, password) VALUES (?,?,?,?)';
+        const insertQuery = 'INSERT INTO users (firstName, lastName, email, password) VALUES (?,?,?,?)';
         db.run(insertQuery, [firstName, lastName, email, password], function (err) {
             if (err) return res.status(500).json({ error: err.message});
             res.status(201).json({ message: 'User registered', userId: this.lastID});
@@ -47,6 +47,8 @@ router.post('/login', (req, res) => {
         if (err) return res.status(500).json({error: err.message});
         if (!user) return res.status(401).json({ error: 'Invalid credentials'});
 
+        logInCheck.setUserId(user.id);
+
         res.json({
             message: 'You have logged in',
             user: {
@@ -60,7 +62,7 @@ router.post('/login', (req, res) => {
 });
 
 //Logout
-router.ppost('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     logInCheck.clearUser();
     res.json({message: 'You have logged out'});
 });

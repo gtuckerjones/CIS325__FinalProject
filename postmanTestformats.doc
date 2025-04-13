@@ -1,0 +1,89 @@
+user:
+
+Post:
+http://localhost:3000/api/auth/register/
+http://localhost:3000/api/auth/login/
+http://localhost:3000/api/auth/logout/
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@example.com",
+    "password": "password123!"
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+
+schedule:
+
+Post(create):
+http://localhost:3000/api/schedule/
+
+Get:
+http://localhost:3000/api/schedule/
+
+Put(update):
+http://localhost:3000/api/schedule/:id
+
+Delete:
+http://localhost:3000/api/schedule/:id
+
+{
+    "user_id": 1,
+    "day_of_week": 1,
+    "start_time": "08:00",
+    "end_time": "16:00",
+    "description": "Work"
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+tasks:
+
+Post:
+http://localhost:3000/api/tasks/
+
+Get:
+http://localhost:3000/api/tasks/
+http://localhost:3000/api/tasks/:id
+
+Put:
+http://localhost:3000/api/tasks/:id
+
+Delete:
+http://localhost:3000/api/tasks/:id
+
+{
+    "user_id": 1,
+    "title": "Homework",
+    "description": "Math Homework",
+    "estimated_duration": 120,
+    "due_date": "2025-05-07",
+    "priority": 2,
+    "is_complete": 0
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+scheduledTasks:
+
+Post:
+http://localhost:3000/api/ScheduledTasks/
+
+Get:
+http://localhost:3000/api/scheduledTasks/
+http://localhost:3000/api/scheduledTasks/:id
+
+Put:
+http://localhost:3000/api/scheduledTasks/:id
+
+Delete:
+http://localhost:3000/api/scheduledTasks/:id
+
+{
+    "task_id": 2,
+    "user_id": 1,
+    "scheduled_date": "2025-04-21",
+    "start_time": "18:00",
+    "end_time": "20:00"
+}
