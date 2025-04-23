@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
@@ -49,3 +50,4 @@ router.delete('/me', requireLogIn, (req, res) => {
 });
 
 module.exports = router;
+*/
