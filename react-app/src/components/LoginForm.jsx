@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../api/axios'; //sends HTTP requests to backend 
 
 const LoginForm = ({ setUser }) => { //setUser is passed in LoginPage.jsx
   const [email, setEmail] = useState(''); //'email' holds user input while 'setEmail' updates the input. it is initialized as an empty string
@@ -10,7 +10,7 @@ const LoginForm = ({ setUser }) => { //setUser is passed in LoginPage.jsx
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login', { email, password });
+      const response = await api.post('/auth/login', { email, password }); //sends a POST request to /auth/login which validates the credentials
       console.log('Login response:', response.data); // Debugging
       setUser(response.data.user); //sets the logged in user so that their information can be loaded
       alert(response.data.message); //gives user logged in message or error message
