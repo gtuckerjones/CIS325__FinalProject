@@ -24,7 +24,6 @@ const LoginForm = ({ setUser }) => { //setUser is passed in LoginPage.jsx
 //calls handles onSubmit 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
       <input
         type="email"
         placeholder="Email"

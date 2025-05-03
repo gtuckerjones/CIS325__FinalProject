@@ -7,10 +7,12 @@ const requireLogIn = require('../middleware/logInMiddleware');
 router.post('/', requireLogIn, (req, res) => {
   const { title, description, estimated_duration, due_date, priority } = req.body;
   const userId = logInCheck.getUserId();
+  const dayOfWeek = new Date(due_date).getDay();
+
   db.run(
-    `INSERT INTO tasks (user_id, title, description, estimated_duration, due_date, priority)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [userId, title, description, estimated_duration, due_date, priority],
+    `INSERT INTO tasks (user_id, title, description, estimated_duration, due_date, priority, day_of_week)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [userId, title, description, estimated_duration, due_date, priority, dayOfWeek],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
       res.status(201).json({ id: this.lastID });
