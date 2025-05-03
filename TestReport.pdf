@@ -1,0 +1,79 @@
+1. Client-Side Testing
+    -All pages load correctly
+        -Home Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162017.png
+        -Register Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162230.png
+        -Login Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162306.png
+            -Fix double log in header
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 163309.png
+        -Dashboard
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162501.png
+        -Create Schedule Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162536.png
+        -Create Task Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162613.png
+        -View Scheduled Tasks Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162644.png
+    
+    -All navigation links loaded correctly
+
+    -Test form inputs for valid and invalid inputs
+        -Register Page
+            -email
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 163907.png
+            -password
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164007.png
+        -Login Page
+            -email
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164243.png
+            -password
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164433.png
+            -correct Login
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164518.png
+        -Create Schedule
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171319.png
+        -Create Task
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171427.png
+        -View Schedule and Tasks
+            -First issue. After Scheduling a task, the task does not show up on the weekly schedule sheet
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171658.png
+            -I think this is due to the fact that tasks can be set to a specific date while schedule is just set to a day of the week.
+            -We need to change the code so that the tasks recognize what day of the week they are created on and that they are put into the weekly schedule page accordingly
+            -In the tasks table we need to calculate and store the day of the week based on the due date
+                -Update the POST route in tasks.js
+                    -tasks.js(old)
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173004.png
+                    -tasks.js(new)
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173312.png
+                -Update the Database Schema
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173705.png
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173923.png
+                -Corrected Result
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 174641.png
+                -Add, Edit and Delete on the Client-Side is not functional
+                    -Edit error
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175144.png
+                    -Add error
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175228.png
+                    -Delete error
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175309.png
+2. Server-Side Testing     
+    -API Endpoint Testing using Postman
+        -Register
+            -Invalid Credentials
+                -email
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170036.png
+                -password
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170135.png
+            -Valid Credentials
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170342.png
+        -Login
+            -Invalid Credentials
+                -email does not exist
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170637.png
+                -Incorrect Password with existing user
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170914.png
+            -Valid Credentials
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171036.png
