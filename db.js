@@ -37,6 +37,7 @@ db.serialize(() => {
             due_date TEXT,                  -- ISO date format: YYYY-MM-DD
             priority INTEGER DEFAULT 1,     -- 1 = Low, 2 = Medium, 3 = High
             is_complete INTEGER DEFAULT 0,
+            day_of_week INTEGER,
             FOREIGN KEY (user_id) REFERENCES users(id)
         )
     `);
