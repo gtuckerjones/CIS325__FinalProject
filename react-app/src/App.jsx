@@ -10,6 +10,7 @@ import CreateTaskPage from './Pages/CreateTaskPage';
 import ViewScheduledTaskPage from './Pages/ViewScheduleTaskPage';
 
 //basically the layout map of the website
+//defined routing structure for the app
 const App = () => {
   const [user, setUser] = useState(null);
   return (
