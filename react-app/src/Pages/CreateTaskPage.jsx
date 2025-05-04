@@ -11,9 +11,19 @@ const CreateTaskPage = () => {
 
   //bulk of the page is just the taskform
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Create Task</h1>
-      <TaskForm onTaskAdded={handleTaskAdded} />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card shadow-sm">
+            <div className="card-header bg-primary text-white text-center">
+              <h2>Create Task</h2>
+            </div>
+            <div className="card-body">
+              <TaskForm onTaskAdded={handleTaskAdded} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
