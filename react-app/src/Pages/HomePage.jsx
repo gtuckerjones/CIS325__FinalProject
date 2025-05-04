@@ -5,25 +5,25 @@ const HomePage = () => {
   const navigate = useNavigate();
 
 //HomePage that contains a welcome header and only two buttons that redirect the user to register or login based on which button they choose
-  return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Schedule App</h1>
-      <div style={{ marginTop: '20px' }}>
-        <button
-          style={{ marginRight: '10px', padding: '10px 20px' }}
-          onClick={() => navigate('/register')}
-        >
-          Register
-        </button>
-        <button
-          style={{ padding: '10px 20px' }}
-          onClick={() => navigate('/login')}
-        >
-          Login
-        </button>
-      </div>
+return (
+  <div className="container text-center mt-5">
+    <h1 className="mb-4">Schedule App</h1>
+    <div className="d-flex justify-content-center gap-3">
+      <button
+        className="btn btn-primary"
+        onClick={() => navigate('/register')}
+      >
+        Register
+      </button>
+      <button
+        className="btn btn-secondary"
+        onClick={() => navigate('/login')}
+      >
+        Login
+      </button>
     </div>
-  );
+  </div>
+);
 };
 
 export default HomePage;

@@ -11,9 +11,19 @@ const CreateSchedulePage = () => {
 
   //base schedule page that uses the form page for the bulk of the page. 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Create Schedule</h1>
-      <ScheduleForm onScheduleAdded={handleScheduleAdded} />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card shadow-sm">
+            <div className="card-header bg-primary text-white text-center">
+              <h2>Create Schedule</h2>
+            </div>
+            <div className="card-body">
+              <ScheduleForm onScheduleAdded={handleScheduleAdded} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

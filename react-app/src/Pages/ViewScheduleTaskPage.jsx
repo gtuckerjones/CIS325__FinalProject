@@ -111,47 +111,80 @@ const ViewScheduleTaskPage = () => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>View Schedule and Tasks</h1>
-      {daysOfWeek.map((day, index) => (
-        <div key={index} style={{ marginBottom: '20px' }}>
-          <h2>{day}</h2>
-
-          {/* Tasks Section */}
-          <div>
-            <h3>Tasks</h3>
-            {tasks
-              .filter((task) => task.day_of_week === index)
-              .map((task) => (
-                <div key={task.id} style={{ marginBottom: '10px' }}>
-                  <p>
-                    <strong>{task.title}</strong>: {task.description} (Priority: {task.priority})
-                  </p>
-                  <button onClick={() => handleEditTask(task)}>Edit Task</button>
-                  <button onClick={() => handleDeleteTask(task.id)}>Delete Task</button>
-                </div>
-              ))}
-            <button onClick={handleAddTask}>Add Task</button>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Weekly Schedule and Tasks</h1>
+      <div className="row">
+        {daysOfWeek.map((day, index) => (
+          <div key={index} className="col-md-4 mb-4">
+            <div className="card shadow-sm">
+              <div className="card-header bg-primary text-white text-center">
+                <h5>{day}</h5>
+              </div>
+              <div className="card-body">
+                <h6 className="text-secondary">Schedules:</h6>
+                {schedules
+                  .filter((schedule) => schedule.day_of_week === index)
+                  .map((schedule) => (
+                    <div key={schedule.id} className="mb-2">
+                      <p className="mb-1">
+                        <strong>{schedule.description}</strong>
+                      </p>
+                      <p className="text-muted">
+                        {schedule.start_time} - {schedule.end_time}
+                      </p>
+                      <div className="d-flex justify-content-between">
+                        <button
+                          className="btn btn-sm btn-warning"
+                          onClick={() => handleEditSchedule(schedule)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => handleDeleteSchedule(schedule.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                <button className="btn btn-sm btn-success mt-2" onClick={handleAddSchedule}>
+                  Add Schedule
+                </button>
+                <hr />
+                <h6 className="text-secondary">Tasks:</h6>
+                {tasks
+                  .filter((task) => task.day_of_week === index)
+                  .map((task) => (
+                    <div key={task.id} className="mb-2">
+                      <p className="mb-1">
+                        <strong>{task.title}</strong>
+                      </p>
+                      <p className="text-muted">{task.description}</p>
+                      <div className="d-flex justify-content-between">
+                        <button
+                          className="btn btn-sm btn-warning"
+                          onClick={() => handleEditTask(task)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => handleDeleteTask(task.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                <button className="btn btn-sm btn-success mt-2" onClick={handleAddTask}>
+                  Add Task
+                </button>
+              </div>
+            </div>
           </div>
-
-          {/* Schedules Section */}
-          <div>
-            <h3>Schedules</h3>
-            {schedules
-              .filter((schedule) => schedule.day_of_week === index)
-              .map((schedule) => (
-                <div key={schedule.id} style={{ marginBottom: '10px' }}>
-                  <p>
-                    <strong>{schedule.description}</strong>: {schedule.start_time} - {schedule.end_time}
-                  </p>
-                  <button onClick={() => handleEditSchedule(schedule)}>Edit Schedule</button>
-                  <button onClick={() => handleDeleteSchedule(schedule.id)}>Delete Schedule</button>
-                </div>
-              ))}
-            <button onClick={handleAddSchedule}>Add Schedule</button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
