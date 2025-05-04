@@ -31,6 +31,7 @@ const Dashboard = ({ user }) => { //called in App.jsx
 
   //four buttons are created that redirect the user to 3 different pages or logs the user out
   //the pages include creating a schedule, creating a task, or the view page which can give a layout view of users weekly schedule and allow them to add edit or delete data
+  //Buttons are styled using bootstrap classes 
   return (
     <div className="container text-center mt-5">
       <h1 className="mb-4">Welcome, {user.firstName}</h1>

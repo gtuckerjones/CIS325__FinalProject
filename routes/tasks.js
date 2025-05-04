@@ -7,7 +7,7 @@ const requireLogIn = require('../middleware/logInMiddleware');
 router.post('/', requireLogIn, (req, res) => {
   const { title, description, estimated_duration, due_date, priority } = req.body;
   const userId = logInCheck.getUserId();
-  const dayOfWeek = new Date(due_date).getDay();
+  const dayOfWeek = new Date(`${due_date}T00:00:00Z`).getUTCDay();
 
   db.run(
     `INSERT INTO tasks (user_id, title, description, estimated_duration, due_date, priority, day_of_week)

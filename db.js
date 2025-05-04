@@ -1,3 +1,4 @@
+//Initializes the database with tables
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./cis325.sqlite3', (err) => {
   if (err) return console.error('DB Connection Error:', err.message);

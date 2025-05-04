@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api/axios';
+import api from '../api/axios'; //sends data to the backend using axios
 
 const TaskForm = ({ onTaskAdded }) => {
   const [task, setTask] = useState({ //task holds the user input while set tasks updates the user input
