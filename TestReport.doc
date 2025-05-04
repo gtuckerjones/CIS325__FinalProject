@@ -1,0 +1,139 @@
+1. Client-Side Testing
+    -All pages load correctly
+        -Home Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162017.png
+        -Register Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162230.png
+        -Login Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162306.png
+            -Fix double log in header
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 163309.png
+        -Dashboard
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162501.png
+        -Create Schedule Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162536.png
+        -Create Task Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162613.png
+        -View Scheduled Tasks Page
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 162644.png
+    
+    -All navigation links loaded correctly
+
+    -Test form inputs for valid and invalid inputs
+        -Register Page
+            -email
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 163907.png
+            -password
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164007.png
+        -Login Page
+            -email
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164243.png
+            -password
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164433.png
+            -correct Login
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 164518.png
+        -Create Schedule
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171319.png
+        -Create Task
+            -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171427.png
+        -View Schedule and Tasks
+            -First issue. After Scheduling a task, the task does not show up on the weekly schedule sheet
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171658.png
+            -I think this is due to the fact that tasks can be set to a specific date while schedule is just set to a day of the week.
+            -We need to change the code so that the tasks recognize what day of the week they are created on and that they are put into the weekly schedule page accordingly
+            -In the tasks table we need to calculate and store the day of the week based on the due date
+                -Update the POST route in tasks.js
+                    -tasks.js(old)
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173004.png
+                    -tasks.js(new)
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173312.png
+                -Update the Database Schema
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173705.png
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173923.png
+                -Corrected Result
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 174641.png
+                -Add and Edit on the Client-Side is not functional
+                    -Edit error
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175144.png
+                            -Ensure that user can edit the data completely by reworking the ViewScheduleTaskPage.jsx
+                            -Was originally checking to edit schedule and task, now the code is just editing tasks
+                                -ViewScheduleTaskPage.jsx(old)
+                                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 180820.png
+                                -ViewScheduleTaskPage.jsx(new)
+                                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 181129.png
+                    -Add error
+                        -To fix the add error, I just changed the button functions to redirect the user to the add tasks page
+                            -ViewScheduleTaskPage.jsx(old)
+                                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 182325.png
+                            -ViewScheduleTaskPage.jsx(new)
+                                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 182617.png
+                    -Add error
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175228.png
+                    -Added separate event handlers to add, edit and delete schedule data
+2. Server-Side Testing     
+    -API Endpoint Testing using Postman
+    -Postman Link: 
+    (https://tuckerjones-2171418.postman.co/workspace/Tucker-Jones's-Workspace~cffa88ca-4c33-4c40-8e74-2f465459c3cc/collection/44011590-ca55e868-69f9-4008-9f1e-89d625263e0a?action=share&creator=44011590)
+        -User:
+            -Register
+                -Invalid Credentials
+                    -email
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170036.png
+                    -password
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170135.png
+                -Valid Credentials
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170342.png
+            -Login
+                -Invalid Credentials
+                    -email does not exist
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170637.png
+                    -Incorrect Password with existing user
+                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 170914.png
+                -Valid Credentials
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 171036.png
+            -logout
+                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 185717.png
+        -Schedule:
+            -Create
+                -User not logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 190218.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 190427.png
+            -Get(View)
+                -User logged out
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 190647.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 190833.png
+            -Update
+                -User logged out
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 192017.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 192117.png
+            -Delete
+                -User logged out
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 192248.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 192408.png
+        -Tasks
+            -Create
+                -User not logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 192852.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 193006.png
+            -Get(View)
+                -User not logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 193500.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 193529.png
+            -Update
+                -User logged out
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 193908.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 194022.png
+            -Delete
+                -User logged out
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 194202.png
+                -User logged in
+                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 194307.png
+        
+        

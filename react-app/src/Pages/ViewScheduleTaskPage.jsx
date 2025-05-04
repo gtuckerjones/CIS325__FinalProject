@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
-import View from '../components/View';
-
-//similarly from the view.jsx I used my copilot to help create this file
-//but it basically consist of a bunch of event handlers that allow the user to view, add, edit, and delete tasks
-//this page definitely needs to be refined and checked for potential bugs
-//this is mostly a placeholder that i will hopefully come back to.
+import { useNavigate } from 'react-router-dom';
 
 const ViewScheduleTaskPage = () => {
   const [schedules, setSchedules] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSchedules();
@@ -34,67 +30,128 @@ const ViewScheduleTaskPage = () => {
     }
   };
 
-  const handleAdd = async (dayOfWeek) => {
-    const description = prompt('Enter schedule description:');
-    if (!description) return;
+  const handleAddTask = () => {
+    navigate('/create-task'); // Redirect to the "Add Tasks" page
+  };
+
+  const handleEditTask = async (task) => {
+    const newTitle = prompt('Enter new title:', task.title);
+    const newDescription = prompt('Enter new description:', task.description);
+    const newPriority = prompt('Enter new priority (1 = Low, 2 = Medium, 3 = High):', task.priority);
+
+    if (!newTitle || !newDescription || !newPriority) return;
 
     try {
-      const response = await api.post('/schedule', { day_of_week: dayOfWeek, description });
-      setSchedules([...schedules, response.data]);
+      await api.put(`/tasks/${task.id}`, {
+        title: newTitle,
+        description: newDescription,
+        priority: parseInt(newPriority),
+        estimated_duration: task.estimated_duration,
+        is_complete: task.is_complete,
+      });
+      setTasks(
+        tasks.map((t) =>
+          t.id === task.id
+            ? { ...t, title: newTitle, description: newDescription, priority: parseInt(newPriority) }
+            : t
+        )
+      );
     } catch (error) {
-      console.error('Error adding schedule:', error);
+      console.error('Error editing task:', error);
     }
   };
 
-  const handleEdit = async (type, item) => {
-    const newDescription = prompt('Enter new description:', item.description || item.title);
-    if (!newDescription) return;
-
+  const handleDeleteTask = async (id) => {
     try {
-      if (type === 'schedule') {
-        await api.put(`/schedule/${item.id}`, { ...item, description: newDescription });
-        setSchedules(
-          schedules.map((schedule) =>
-            schedule.id === item.id ? { ...schedule, description: newDescription } : schedule
-          )
-        );
-      } else if (type === 'task') {
-        await api.put(`/tasks/${item.id}`, { ...item, title: newDescription });
-        setTasks(
-          tasks.map((task) =>
-            task.id === item.id ? { ...task, title: newDescription } : task
-          )
-        );
-      }
+      await api.delete(`/tasks/${id}`);
+      setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
-      console.error('Error editing item:', error);
+      console.error('Error deleting task:', error);
     }
   };
 
-  const handleDelete = async (type, id) => {
+  const handleAddSchedule = () => {
+    navigate('/create-schedule'); // Redirect to the "Create Schedule" page
+  };
+
+  const handleEditSchedule = async (schedule) => {
+    const newStartTime = prompt('Enter new start time (HH:MM):', schedule.start_time);
+    const newEndTime = prompt('Enter new end time (HH:MM):', schedule.end_time);
+    const newDescription = prompt('Enter new description:', schedule.description);
+
+    if (!newStartTime || !newEndTime || !newDescription) return;
+
     try {
-      if (type === 'schedule') {
-        await api.delete(`/schedule/${id}`);
-        setSchedules(schedules.filter((schedule) => schedule.id !== id));
-      } else if (type === 'task') {
-        await api.delete(`/tasks/${id}`);
-        setTasks(tasks.filter((task) => task.id !== id));
-      }
+      await api.put(`/schedule/${schedule.id}`, {
+        start_time: newStartTime,
+        end_time: newEndTime,
+        description: newDescription,
+      });
+      setSchedules(
+        schedules.map((s) =>
+          s.id === schedule.id
+            ? { ...s, start_time: newStartTime, end_time: newEndTime, description: newDescription }
+            : s
+        )
+      );
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error('Error editing schedule:', error);
     }
   };
+
+  const handleDeleteSchedule = async (id) => {
+    try {
+      await api.delete(`/schedule/${id}`);
+      setSchedules(schedules.filter((schedule) => schedule.id !== id));
+    } catch (error) {
+      console.error('Error deleting schedule:', error);
+    }
+  };
+
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   return (
     <div>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>View Schedule and Tasks</h1>
-      <View
-        schedules={schedules}
-        tasks={tasks}
-        onAdd={handleAdd}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      {daysOfWeek.map((day, index) => (
+        <div key={index} style={{ marginBottom: '20px' }}>
+          <h2>{day}</h2>
+
+          {/* Tasks Section */}
+          <div>
+            <h3>Tasks</h3>
+            {tasks
+              .filter((task) => task.day_of_week === index)
+              .map((task) => (
+                <div key={task.id} style={{ marginBottom: '10px' }}>
+                  <p>
+                    <strong>{task.title}</strong>: {task.description} (Priority: {task.priority})
+                  </p>
+                  <button onClick={() => handleEditTask(task)}>Edit Task</button>
+                  <button onClick={() => handleDeleteTask(task.id)}>Delete Task</button>
+                </div>
+              ))}
+            <button onClick={handleAddTask}>Add Task</button>
+          </div>
+
+          {/* Schedules Section */}
+          <div>
+            <h3>Schedules</h3>
+            {schedules
+              .filter((schedule) => schedule.day_of_week === index)
+              .map((schedule) => (
+                <div key={schedule.id} style={{ marginBottom: '10px' }}>
+                  <p>
+                    <strong>{schedule.description}</strong>: {schedule.start_time} - {schedule.end_time}
+                  </p>
+                  <button onClick={() => handleEditSchedule(schedule)}>Edit Schedule</button>
+                  <button onClick={() => handleDeleteSchedule(schedule.id)}>Delete Schedule</button>
+                </div>
+              ))}
+            <button onClick={handleAddSchedule}>Add Schedule</button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

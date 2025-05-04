@@ -52,13 +52,24 @@
                     -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 173923.png
                 -Corrected Result
                     -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 174641.png
-                -Add, Edit and Delete on the Client-Side is not functional
+                -Add and Edit on the Client-Side is not functional
                     -Edit error
                         -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175144.png
+                            -Ensure that user can edit the data completely by reworking the ViewScheduleTaskPage.jsx
+                            -Was originally checking to edit schedule and task, now the code is just editing tasks
+                                -ViewScheduleTaskPage.jsx(old)
+                                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 180820.png
+                                -ViewScheduleTaskPage.jsx(new)
+                                    -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 181129.png
+                    -Add error
+                        -To fix the add error, I just changed the button functions to redirect the user to the add tasks page
+                            -ViewScheduleTaskPage.jsx(old)
+                                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 182325.png
+                            -ViewScheduleTaskPage.jsx(new)
+                                -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 182617.png
                     -Add error
                         -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175228.png
-                    -Delete error
-                        -c:\Users\gtuck\OneDrive\Pictures\Screenshots\Screenshot 2025-05-03 175309.png
+                    -Added separate event handlers to add, edit and delete schedule data
 2. Server-Side Testing     
     -API Endpoint Testing using Postman
         -Register
