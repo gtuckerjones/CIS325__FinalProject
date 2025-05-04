@@ -32,29 +32,29 @@ const Dashboard = ({ user }) => { //called in App.jsx
   //four buttons are created that redirect the user to 3 different pages or logs the user out
   //the pages include creating a schedule, creating a task, or the view page which can give a layout view of users weekly schedule and allow them to add edit or delete data
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Welcome, {user.firstName}</h1>
-      <div style={{ marginTop: '20px' }}>
+    <div className="container text-center mt-5">
+      <h1 className="mb-4">Welcome, {user.firstName}</h1>
+      <div className="d-flex flex-wrap justify-content-center gap-3">
         <button
-          style={{ margin: '10px', padding: '10px 20px' }}
+          className="btn btn-primary"
           onClick={() => navigate('/create-schedule')}
         >
           Create Schedule
         </button>
         <button
-          style={{ margin: '10px', padding: '10px 20px' }}
+          className="btn btn-success"
           onClick={() => navigate('/create-task')}
         >
           Create Task
         </button>
         <button
-          style={{ margin: '10px', padding: '10px 20px' }}
+          className="btn btn-info"
           onClick={() => navigate('/view-schedule-task')}
         >
           View Schedule and Tasks
         </button>
         <button
-          style={{ margin: '10px', padding: '10px 20px', backgroundColor: 'red', color: 'white' }}
+          className="btn btn-danger"
           onClick={handleLogout}
         >
           Logout
